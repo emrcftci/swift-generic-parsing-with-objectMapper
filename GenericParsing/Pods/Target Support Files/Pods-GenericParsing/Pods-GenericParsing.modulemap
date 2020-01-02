@@ -1,0 +1,6 @@
+framework module Pods_GenericParsing {
+  umbrella header "Pods-GenericParsing-umbrella.h"
+
+  export *
+  module * { export * }
+}
