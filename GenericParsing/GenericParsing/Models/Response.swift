@@ -11,6 +11,7 @@ import ObjectMapper
 /// Response contains our data field for map generic type objects
 public final class Response<T: BaseMappable>: AnyResponse, Mappable {
 
+  /// This will be our models (`Continent, Company, Person, Space`)
   public var data: T!
 
   public override init() {
