@@ -5,7 +5,7 @@ Purpose of the project
 
 :boom: This project will help you to understand generic parsing via [ObjectMapper](https://github.com/tristanhimmelman/ObjectMapper)
 
-Table of contents
+Table of contents :page_with_curl:
 =================
 
 <!--ts-->
@@ -49,7 +49,7 @@ Build Script
 
 :100: **Build Script** changes URL of source every build.
 
-To-do list
+To-do list :heavy_check_mark:
 ==========
 
 This to-do list is consist of 4 sections. We will see how to install libraries, parsing generics and write a build script with Swift. :rocket:
@@ -67,7 +67,7 @@ In this part, we will learn how to install ObjectMapper via Swift Package Manage
 To add ObjectMapper to a Swift Package Manager based project, add:
 
 ```
-    .Package(url: "https://github.com/Hearst-DD/ObjectMapper.git", majorVersion: 2, minor: 2),
+.Package(url: "https://github.com/Hearst-DD/ObjectMapper.git", majorVersion: 2, minor: 2),
 ```
 to your Package.swift files dependencies array.
 
@@ -80,7 +80,7 @@ to your Package.swift files dependencies array.
 ObjectMapper can be added to your project using Cocoapods 0.36 (beta) by adding the following line to your Podfile:
 
 ```
-    pod 'ObjectMapper', '~> 0.2'
+pod 'ObjectMapper', '~> 0.2'
 ```
 
 #### via Carthage
@@ -91,7 +91,7 @@ ObjectMapper can be added to your project using Cocoapods 0.36 (beta) by adding 
 You can add a dependency on ObjectMapper by adding it to your Cartfile:
 
 ```
-    github "Hearst-DD/ObjectMapper" ~> 0.2
+github "Hearst-DD/ObjectMapper" ~> 0.2
 ```
 
 #### via Manually
@@ -124,7 +124,7 @@ In this part, we will learn how to install Alamofire via Swift Package Manager, 
 To add Alamofire to a Swift Package Manager based project, add:
 
 ```
-    .Package(url: "https://github.com/Alamofire/Alamofire.git", majorVersion: 4),
+.Package(url: "https://github.com/Alamofire/Alamofire.git", majorVersion: 4),
 ```
 to your Package.swift files dependencies array.
 
@@ -136,7 +136,7 @@ to your Package.swift files dependencies array.
 To integrate Alamofire into your Xcode project using CocoaPods, specify it in your Podfile:
 
 ```
-    pod 'Alamofire', '~> 5.0.0-rc.3'
+pod 'Alamofire', '~> 5.0.0-rc.3'
 ```
 
 #### via Carthage
@@ -147,7 +147,7 @@ To integrate Alamofire into your Xcode project using CocoaPods, specify it in yo
 To integrate Alamofire into your Xcode project using Carthage, specify it in your Cartfile:
 
 ```
-    github "Alamofire/Alamofire" "5.0.0-rc.3"
+github "Alamofire/Alamofire" "5.0.0-rc.3"
 ```
 
 #### via Manually
@@ -218,76 +218,76 @@ These are protocols of ObjectMapper which we'll use for parsing generic response
 
 ``` swift
 
-    import ObjectMapper
+import ObjectMapper
 
-    /// Firstly we should map "type" key for recognize what kind of object will come
-    public class AnyResponse: StaticMappable {
+/// Firstly we should map "type" key for recognize what kind of object will come
+public class AnyResponse: StaticMappable {
 
-        public var type: ResponseType = .undefined
+    public var type: ResponseType = .undefined
 
-        /// "display" returns an object which has correct type and conforms DisplayProtocol
-        public var display: DisplayProtocol? {
-          return AnyResponse.displayForComponent(self)
-        }
+    /// "display" returns an object which has correct type and conforms DisplayProtocol
+    public var display: DisplayProtocol? {
+        return AnyResponse.displayForComponent(self)
+    }
 
-        public func mapping(map: Map) {
-            type <- (map["type"], EnumTransform<ResponseType>())
-        }
+    public func mapping(map: Map) {
+        type <- (map["type"], EnumTransform<ResponseType>())
+    }
 
-        public class func objectForMapping(map: Map) -> BaseMappable? {
-            /// Map type first
-            let type: ResponseType = try! map.value("type", using: EnumTransform<ResponseType>())
+    public class func objectForMapping(map: Map) -> BaseMappable? {
+        /// Map type first
+        let type: ResponseType = try! map.value("type", using: EnumTransform<ResponseType>())
 
-            /// Then we can check the type for return correct model
-            ///
-            /// Response<Space>(): return Response with <T> -T is Space for this case-
-            /// Constructor `()` call the map function of Response<T> and T is set before calling
-            switch type {
-            case .space:
-                return Response<Space>()
-
-            case .company:
-                return Response<Company>()
-
-            case .continent:
-                return Response<Continent>()
-
-            case .person:
-                return Response<Person>()
-
-            case .undefined:
-                return nil
-            }
-        }
-
-        /// Helper function for return correct `DisplayProtocol` object to use UI configuration
+        /// Then we can check the type for return correct model
         ///
-        /// `SpaceDisplay` has an initializer like -> `init(component: Response<Space>)` so `component.unpacked()` function's <T> parameter is `Space`.
-        private class func displayForComponent(_ component: AnyResponse) -> DisplayProtocol? {
+        /// Response<Space>(): return Response with <T> -T is Space for this case-
+        /// Constructor `()` call the map function of Response<T> and T is set before calling
+        switch type {
+        case .space:
+            return Response<Space>()
 
-            switch component.type {
-            case .space:
-                return SpaceDisplay(component: component.unpacked())
+        case .company:
+            return Response<Company>()
 
-            case .company:
-                return CompanyDisplay(component: component.unpacked())
+        case .continent:
+            return Response<Continent>()
 
-            case .continent:
-                return ContinentDisplay(component: component.unpacked())
+        case .person:
+            return Response<Person>()
 
-            case .person:
-                return PersonDisplay(component: component.unpacked())
-
-            case .undefined:
-                return nil
-            }
-        }
-
-        /// Unpacked `AnyResponse` with correct object (`T`) and return Response with <T>
-        private func unpacked<T>() -> Response<T> {
-            return self as! Response<T>
+        case .undefined:
+            return nil
         }
     }
+
+    /// Helper function for return correct `DisplayProtocol` object to use UI configuration
+    ///
+    /// `SpaceDisplay` has an initializer like -> `init(component: Response<Space>)` so `component.unpacked()` function's <T> parameter is`Space`.
+    private class func displayForComponent(_ component: AnyResponse) -> DisplayProtocol? {
+
+        switch component.type {
+        case .space:
+            return SpaceDisplay(component: component.unpacked())
+
+        case .company:
+            return CompanyDisplay(component: component.unpacked())
+
+        case .continent:
+            return ContinentDisplay(component: component.unpacked())
+
+        case .person:
+            return PersonDisplay(component: component.unpacked())
+
+        case .undefined:
+            return nil
+        }
+    }
+
+    /// Unpacked `AnyResponse` with correct object (`T`) and return Response with <T>
+    private func unpacked<T>() -> Response<T> {
+        return self as! Response<T>
+    }
+}
 ```
 
 #### BaseMappable
@@ -295,43 +295,43 @@ These are protocols of ObjectMapper which we'll use for parsing generic response
 The following lines are describing `BaseMappable` in **ObjectMapper**'s source code.
 
 ``` swift
-    /// BaseMappable should not be implemented directly. Mappable or StaticMappable should be used instead
-    public protocol BaseMappable {
-	    /// This function is where all variable mappings should occur. It is executed by Mapper during the mapping (serialization and deserialization) process.
-	    mutating func mapping(map: Map)
-    }
+/// BaseMappable should not be implemented directly. Mappable or StaticMappable should be used instead
+public protocol BaseMappable {
+    /// This function is where all variable mappings should occur. It is executed by Mapper during the mapping (serialization anddeserialization) process.
+    mutating func mapping(map: Map)
+}
 ```
 
 **Our Usage**
 
 ``` swift
 
-    import ObjectMapper
+import ObjectMapper
 
-    /// Response contains our data field for map generic type objects
-    public final class Response<T: BaseMappable>: AnyResponse, Mappable {
+/// Response contains our data field for map generic type objects
+public final class Response<T: BaseMappable>: AnyResponse, Mappable {
 
-        /// This will be our models (`Continent, Company, Person, Space`)
-        public var data: T!
+    /// This will be our models (`Continent, Company, Person, Space`)
+    public var data: T!
 
-        public override init() {
-            super.init()
-        }
-
-        public required init?(map: Map) {
-            super.init()
-            data = try? map.value("detail")
-        }
-
-        /// Called after `objectForMapping(map: ) -> BaseMappable?` returns a correct T object
-        public override func mapping(map: Map) {
-        super.mapping(map: map)
-            data <- map["detail"]
-        }
+    public override init() {
+        super.init()
     }
+
+    public required init?(map: Map) {
+        super.init()
+        data = try? map.value("detail")
+    }
+
+    /// Called after `objectForMapping(map: ) -> BaseMappable?` returns a correct T object
+    public override func mapping(map: Map) {
+    super.mapping(map: map)
+        data <- map["detail"]
+    }
+}
 ```
 
-Custom Build Script
+Custom Build Script :rocket:
 -------------------
 
 #### Why we use that?
@@ -358,85 +358,84 @@ Custom Build Script
 #### Our Usage
 
 ``` swift
-    #!/usr/bin/env xcrun --sdk macosx swift
+#!/usr/bin/env xcrun --sdk macosx swift
 
-    import Foundation
+import Foundation
 
-    // MARK: - Extension for get url string from ViewController.swift
+// MARK: - Extension for get url string from ViewController.swift
+extension String {
 
-    extension String {
+    func slice(from: String, to: String) -> String? {
 
-        func slice(from: String, to: String) -> String? {
-
-            return (range(of: from)?.upperBound).flatMap { substringFrom in
-                (range(of: to, range: substringFrom..<endIndex)?.lowerBound).map { substringTo in
-                    String(self[substringFrom..<substringTo])
-                }
+        return (range(of: from)?.upperBound).flatMap { substringFrom in
+            (range(of: to, range: substringFrom..<endIndex)?.lowerBound).map { substringTo in
+                String(self[substringFrom..<substringTo])
             }
         }
     }
+}
 
-    /// Returns random element of given `URLs`
-    /// Function calls itself until `randomlySelected` has a different value
-    /// - Parameters:
-    ///   - URLs: Array of URLs for pick up random element
-    ///   - current: URL for pick up different element from URLs
-    func randomElement(for URLs: [String], with currentURL: String) -> String? {
-        let randomlySelected = URLs.randomElement()!
+/// Returns random element of given `URLs`
+/// Function calls itself until `randomlySelected` has a different value
+/// - Parameters:
+///   - URLs: Array of URLs for pick up random element
+///   - current: URL for pick up different element from URLs
+func randomElement(for URLs: [String], with currentURL: String) -> String? {
 
-        if currentURL.contains(randomlySelected) {
-            return randomElement(for: URLs, with: currentURL)
-        }
+    let randomlySelected = URLs.randomElement()!
 
-        return randomlySelected
+    if currentURL.contains(randomlySelected) {
+        return randomElement(for: URLs, with: currentURL)
     }
+    return randomlySelected
+}
 
-    /// Base URL contains different JSON files
-    let BASE_URL = "https://emrcftci.github.io/demo.github.io/generic-parsing-example/"
+/// Base URL contains different JSON files
+let BASE_URL = "https://emrcftci.github.io/demo.github.io/generic-parsing-example/"
 
-    let URLs = [
-      "continent.json",
-      "space.json",
-      "person.json",
-      "company.json"
-    ]
+let URLs = [
+  "continent.json",
+  "space.json",
+  "person.json",
+  "company.json"
+]
 
-    /// Project directory without "/Scripts/change-url"
-    let PROJECT_DIR = URL(fileURLWithPath: #file).pathComponents.map { "\($0)/" }.dropFirst().dropLast().dropLast().joined()
+/// Project directory without "/Scripts/change-url"
+let PROJECT_DIR = URL(fileURLWithPath: #file).pathComponents.map { "\($0)/" }.dropFirst().dropLast().dropLast().joined()
 
-    /// ViewController.swift file's directory
-    let FILE_DIR = "/\(PROJECT_DIR)GenericParsing/ViewController.swift"
+/// ViewController.swift file's directory
+let FILE_DIR = "/\(PROJECT_DIR)GenericParsing/ViewController.swift"
 
-    do {
-        /// All texts in ViewController.swift
-        let CONTENTS = try String(contentsOfFile: FILE_DIR)
+do {
+    /// All texts in ViewController.swift
+    let CONTENTS = try String(contentsOfFile: FILE_DIR)
 
-        /// URL line between `<changed></changed>` tags
-        let URL_LINE = CONTENTS.slice(from: "<change>", to: "//</change>")!
+    /// URL line between `<changed></changed>` tags
+    let URL_LINE = CONTENTS.slice(from: "<change>", to: "//</change>")!
 
-        let RANDOMLY_SELECTED_ENDPOINT = randomElement(for: URLs, with: URL_LINE)!
+    let RANDOMLY_SELECTED_ENDPOINT = randomElement(for: URLs, with: URL_LINE)!
 
-        /// Modified line for updated ViewController.swift
-        let CHANGED_URL = "\n    let url = " + "\"\(BASE_URL)" + "\(RANDOMLY_SELECTED_ENDPOINT)\"" + "\n"
+    /// Modified line for updated ViewController.swift
+    let CHANGED_URL = "\n    let url = " + "\"\(BASE_URL)" + "\(RANDOMLY_SELECTED_ENDPOINT)\"" + "\n"
 
-        /// New file contents with `CHANGED_URL`
-        let NEW_FILE_CONTENTS = CONTENTS.replacingOccurrences(of: URL_LINE, with: CHANGED_URL)
+    /// New file contents with `CHANGED_URL`
+    let NEW_FILE_CONTENTS = CONTENTS.replacingOccurrences(of: URL_LINE, with: CHANGED_URL)
 
-        // Write new contents to `ViewController.swift`
-        let FILE_URL = URL(fileURLWithPath: FILE_DIR)
-        try! NEW_FILE_CONTENTS.write(to: FILE_URL, atomically: true, encoding: .utf8)
-    }
-    catch {
-        print("error occured:", error)
-    }
+    // Write new contents to `ViewController.swift`
+    let FILE_URL = URL(fileURLWithPath: FILE_DIR)
+    try! NEW_FILE_CONTENTS.write(to: FILE_URL, atomically: true, encoding: .utf8)
+}
+catch {
+    print("error occured:", error)
+}
 ```
 
-<p align="left" style="padding-left: 15px">
+<p align="center">
 <img src="images/script-result.gif"/>
 </p>
 
 
-Resources
+Resources :book:
 =========
 
 Resources that I benefit from to create this comprehensive documentation.
@@ -447,7 +446,7 @@ Resources that I benefit from to create this comprehensive documentation.
 
 * [Alamofire Installation](https://cocoapods.org/pods/Alamofire)
 
-Find this docs useful?
+Find this docs useful? :interrobang:
 ======================
 
 Find this docs useful? :heart: 
