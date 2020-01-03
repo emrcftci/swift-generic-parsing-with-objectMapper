@@ -432,7 +432,7 @@ Custom Build Script
 ```
 
 <p align="left" style="padding-left: 15px">
-<img src="images/script-result.gif" width="350" />
+<img src="images/script-result.gif"/>
 </p>
 
 
