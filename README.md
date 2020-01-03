@@ -216,7 +216,7 @@ These are protocols of ObjectMapper which we'll use for parsing generic response
 
 **Our Usage**
 
-    ```
+``` swift
 
     import ObjectMapper
 
@@ -288,7 +288,7 @@ These are protocols of ObjectMapper which we'll use for parsing generic response
             return self as! Response<T>
         }
     }
-    ```
+```
 
 #### BaseMappable
 
