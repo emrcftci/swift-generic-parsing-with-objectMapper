@@ -216,7 +216,7 @@ These are protocols of ObjectMapper which we'll use for parsing generic response
 
 **Our Usage**
 
-    ```swift
+    ```
 
     import ObjectMapper
 
@@ -294,7 +294,7 @@ These are protocols of ObjectMapper which we'll use for parsing generic response
 
 The following lines are describing `BaseMappable` in **ObjectMapper**'s source code.
 
-    ```swift
+    ```
     /// BaseMappable should not be implemented directly. Mappable or StaticMappable should be used instead
     public protocol BaseMappable {
 	    /// This function is where all variable mappings should occur. It is executed by Mapper during the mapping (serialization and deserialization) process.
@@ -304,7 +304,7 @@ The following lines are describing `BaseMappable` in **ObjectMapper**'s source c
 
 **Our Usage**
 
-    ```swift
+    ```
 
     import ObjectMapper
 
@@ -357,7 +357,7 @@ Custom Build Script
 
 #### Our Usage
 
-    ```swift
+    ```
     #!/usr/bin/env xcrun --sdk macosx swift
 
     import Foundation
