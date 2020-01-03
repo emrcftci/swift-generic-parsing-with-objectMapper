@@ -348,7 +348,7 @@ Custom Build Script
 4. Add Run Script 
 
 <p align="left" style="padding-left: 15px">
-    <img src="images/add-run-script.png" width="250" />
+    <img src="images/add-run-script.png"/>
 </p>
 
 > `${SRCROOT}` is the path to the directory containing the Xcode project.
