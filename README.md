@@ -60,6 +60,9 @@ ObjectMapper Installation
 In this part, we will learn how to install ObjectMapper via Swift Package Manager, Cocoapods, Carthage and Manually. Please visit [Cocoadocs Documentation](http://cocoadocs.org/docsets/ObjectMapper/0.2/) for more details.
 
 #### via Swift Package Manager
+<p align="left" style="padding-left: 15px">
+    <img src="images/spm-logo.png" width="250" />
+</p>
 
 To add ObjectMapper to a Swift Package Manager based project, add:
 
@@ -69,11 +72,10 @@ To add ObjectMapper to a Swift Package Manager based project, add:
 to your Package.swift files dependencies array.
 
 
-<p align="left" style="padding-left: 15px">
-    <img src="images/spm-logo.png" width="250" />
-</p>
-
 #### via Cocoapods
+<p align="left" style="padding-left: 15px">
+    <img src="images/cocoapods-logo.png" width="250" />
+</p>
 
 ObjectMapper can be added to your project using Cocoapods 0.36 (beta) by adding the following line to your Podfile:
 
@@ -81,22 +83,16 @@ ObjectMapper can be added to your project using Cocoapods 0.36 (beta) by adding 
     pod 'ObjectMapper', '~> 0.2'
 ```
 
-<p align="left" style="padding-left: 15px">
-    <img src="images/cocoapods-logo.png" width="250" />
-</p>
-
-
 #### via Carthage
+<p align="left" style="padding-left: 15px">
+    <img src="images/carthage-logo" width="250" />
+</p>
 
 You can add a dependency on ObjectMapper by adding it to your Cartfile:
 
 ```
     github "Hearst-DD/ObjectMapper" ~> 0.2
 ```
-
-<p align="left" style="padding-left: 15px">
-    <img src="images/carthage-logo" width="250" />
-</p>
 
 #### via Manually
 
