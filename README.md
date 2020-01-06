@@ -60,9 +60,6 @@ ObjectMapper Installation
 In this part, we will learn how to install ObjectMapper via Swift Package Manager, Cocoapods, Carthage and Manually. Please visit [Cocoadocs Documentation](http://cocoadocs.org/docsets/ObjectMapper/0.2/) for more details.
 
 #### via Swift Package Manager
-<p align="left" style="padding-left: 15px">
-    <img src="images/spm-logo.png" width="250" />
-</p>
 
 To add ObjectMapper to a Swift Package Manager based project, add:
 
@@ -73,9 +70,6 @@ to your Package.swift files dependencies array.
 
 
 #### via Cocoapods
-<p align="left" style="padding-left: 15px">
-    <img src="images/cocoapods-logo.png" width="250" />
-</p>
 
 ObjectMapper can be added to your project using Cocoapods 0.36 (beta) by adding the following line to your Podfile:
 
@@ -84,9 +78,6 @@ pod 'ObjectMapper', '~> 0.2'
 ```
 
 #### via Carthage
-<p align="left" style="padding-left: 15px">
-    <img src="images/carthage-logo.png" width="250" />
-</p>
 
 You can add a dependency on ObjectMapper by adding it to your Cartfile:
 
@@ -117,9 +108,6 @@ Alamofire Installation
 In this part, we will learn how to install Alamofire via Swift Package Manager, Cocoapods, Carthage and Manually. Please visit [Cocoadocs Documentation](http://cocoadocs.org/docsets/ObjectMapper/0.2/) for more details.
 
 #### via Swift Package Manager
-<p align="left" style="padding-left: 15px">
-    <img src="images/spm-logo.png" width="250" />
-</p>
 
 To add Alamofire to a Swift Package Manager based project, add:
 
@@ -129,9 +117,6 @@ To add Alamofire to a Swift Package Manager based project, add:
 to your Package.swift files dependencies array.
 
 #### via Cocoapods
-<p align="left" style="padding-left: 15px">
-    <img src="images/cocoapods-logo.png" width="250" />
-</p>
 
 To integrate Alamofire into your Xcode project using CocoaPods, specify it in your Podfile:
 
@@ -140,9 +125,6 @@ pod 'Alamofire', '~> 5.0.0-rc.3'
 ```
 
 #### via Carthage
-<p align="left" style="padding-left: 15px">
-    <img src="images/carthage-logo.png" width="250" />
-</p>
 
 To integrate Alamofire into your Xcode project using Carthage, specify it in your Cartfile:
 
@@ -223,70 +205,70 @@ import ObjectMapper
 /// Firstly we should map "type" key for recognize what kind of object will come
 public class AnyResponse: StaticMappable {
 
-    public var type: ResponseType = .undefined
+  public var type: ResponseType = .undefined
 
-    /// "display" returns an object which has correct type and conforms DisplayProtocol
-    public var display: DisplayProtocol? {
-        return AnyResponse.displayForComponent(self)
-    }
+  /// "display" returns an object which has correct type and conforms DisplayProtocol
+  public var data: ViewModelProtocol? {
+    return AnyResponse.dataFor(self)
+  }
 
-    public func mapping(map: Map) {
-        type <- (map["type"], EnumTransform<ResponseType>())
-    }
+  public func mapping(map: Map) {
+    type <- (map["type"], EnumTransform<ResponseType>())
+  }
 
-    public class func objectForMapping(map: Map) -> BaseMappable? {
-        /// Map type first
-        let type: ResponseType = try! map.value("type", using: EnumTransform<ResponseType>())
+  public class func objectForMapping(map: Map) -> BaseMappable? {
+    /// Map type first
+    let type: ResponseType = try! map.value("type", using: EnumTransform<ResponseType>())
 
-        /// Then we can check the type for return correct model
-        ///
-        /// Response<Space>(): return Response with <T> -T is Space for this case-
-        /// Constructor `()` call the map function of Response<T> and T is set before calling
-        switch type {
-        case .space:
-            return Response<Space>()
-
-        case .company:
-            return Response<Company>()
-
-        case .continent:
-            return Response<Continent>()
-
-        case .person:
-            return Response<Person>()
-
-        case .undefined:
-            return nil
-        }
-    }
-
-    /// Helper function for return correct `DisplayProtocol` object to use UI configuration
+    /// Then we can check the type for return correct model
     ///
-    /// `SpaceDisplay` has an initializer like -> `init(component: Response<Space>)` so `component.unpacked()` function's <T> parameter is`Space`.
-    private class func displayForComponent(_ component: AnyResponse) -> DisplayProtocol? {
+    /// Response<Space>(): return Response with <T> -T is Space for this case-
+    /// Constructor `()` call the map function of Response<T> and T is set before calling
+    switch type {
+    case .space:
+      return Response<Space>()
 
-        switch component.type {
-        case .space:
-            return SpaceDisplay(component: component.unpacked())
+    case .company:
+      return Response<Company>()
 
-        case .company:
-            return CompanyDisplay(component: component.unpacked())
+    case .continent:
+      return Response<Continent>()
 
-        case .continent:
-            return ContinentDisplay(component: component.unpacked())
+    case .person:
+      return Response<Person>()
 
-        case .person:
-            return PersonDisplay(component: component.unpacked())
-
-        case .undefined:
-            return nil
-        }
+    case .undefined:
+      return nil
     }
+  }
 
-    /// Unpacked `AnyResponse` with correct object (`T`) and return Response with <T>
-    private func unpacked<T>() -> Response<T> {
-        return self as! Response<T>
+  /// Helper function for return correct `ViewModelProtocol` object to use UI configuration
+  ///
+  /// *Example:* `SpaceViewModel` has an initializer like -> `init(component: Response<Space>)` so `component.unpacked()` function's <T> parameter is `Space` for this example.
+  private class func dataFor(_ component: AnyResponse) -> ViewModelProtocol? {
+
+    switch component.type {
+    case .space:
+      return SpaceViewModel(component: component.unpacked())
+
+    case .company:
+      return CompanyViewModel(component: component.unpacked())
+
+    case .continent:
+      return ContinentViewModel(component: component.unpacked())
+
+    case .person:
+      return PersonViewModel(component: component.unpacked())
+
+    case .undefined:
+      return nil
     }
+  }
+
+  /// Unpacked `AnyResponse` with correct object (`T`) and return Response with <T>
+  private func unpacked<T>() -> Response<T> {
+    return self as! Response<T>
+  }
 }
 ```
 
@@ -311,23 +293,23 @@ import ObjectMapper
 /// Response contains our data field for map generic type objects
 public final class Response<T: BaseMappable>: AnyResponse, Mappable {
 
-    /// This will be our models (`Continent, Company, Person, Space`)
-    public var data: T!
+  /// This will be our models (`Continent, Company, Person, Space`)
+  public var detail: T!
 
-    public override init() {
-        super.init()
-    }
+  public override init() {
+    super.init()
+  }
 
-    public required init?(map: Map) {
-        super.init()
-        data = try? map.value("detail")
-    }
+  public required init?(map: Map) {
+    super.init()
+    detail = try? map.value("detail")
+  }
 
-    /// Called after `objectForMapping(map: ) -> BaseMappable?` returns a correct T object
-    public override func mapping(map: Map) {
+  /// Called after `objectForMapping(map: ) -> BaseMappable?` returns a correct T object
+  public override func mapping(map: Map) {
     super.mapping(map: map)
-        data <- map["detail"]
-    }
+    detail <- map["detail"]
+  }
 }
 ```
 
@@ -348,7 +330,7 @@ Custom Build Script :rocket:
 4. Add Run Script 
 
 <p align="left" style="padding-left: 15px">
-    <img src="images/add-run-script.png"/>
+    <img src="sources/add-run-script.png"/>
 </p>
 
 > `${SRCROOT}` is the path to the directory containing the Xcode project.
@@ -431,7 +413,7 @@ catch {
 ```
 
 <p align="center">
-<img src="images/script-result.gif"/>
+<img src="sources/script-result.gif"/>
 </p>
 
 

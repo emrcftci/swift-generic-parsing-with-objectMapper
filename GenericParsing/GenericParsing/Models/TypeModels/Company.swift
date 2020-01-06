@@ -20,17 +20,17 @@ public struct Company: ImmutableMappable {
   }
 }
 
-// MARK: - DisplayProtocol
+// MARK: - ViewModelProtocol
 
-public struct CompanyDisplay: DisplayProtocol {
+public struct CompanyViewModel: ViewModelProtocol {
   
   public var name: String
   public var detailTitle: String
   public var detail: String?
 
   public init(component: Response<Company>) {
-    name = component.data.name
+    name = component.detail.name
     detailTitle = "Employees Count:" // Sorry for this ☠️
-    detail = component.data.employees.description
+    detail = component.detail.employees.description
   }
 }

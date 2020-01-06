@@ -20,17 +20,17 @@ public struct Person: ImmutableMappable {
   }
 }
 
-// MARK: - DisplayProtocol
+// MARK: - ViewModelProtocol
 
-public struct PersonDisplay: DisplayProtocol {
+public struct PersonViewModel: ViewModelProtocol {
   
   public var name: String
   public var detailTitle: String
   public var detail: String?
 
   public init(component: Response<Person>) {
-    name = component.data.name
+    name = component.detail.name
     detailTitle = "Cell Count:" // Sorry for this ☠️
-    detail = component.data.cells.description
+    detail = component.detail.cells.description
   }
 }

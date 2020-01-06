@@ -21,7 +21,7 @@ class ViewController: UIViewController {
   // MARK: - Properties
 
   /// Configured data for display view
-  private var data: DisplayProtocol? {
+  private var data: ViewModelProtocol? {
     didSet {
       configureView()
     }
@@ -55,7 +55,7 @@ private extension ViewController {
     /// This url changes every time you build the project ( CMD + B)
     /// Custom build script changes this url, please check Project > Build Phases > Change URL Script
 //<change>
-    let url = "https://emrcftci.github.io/demo.github.io/generic-parsing-example/person.json"
+    let url = "https://emrcftci.github.io/demo.github.io/generic-parsing-example/space.json"
 //</change>
     Alamofire.request(url).responseJSON { [weak self] response  in
       let json = try! JSONSerialization.jsonObject(with: response.data!)
@@ -63,7 +63,7 @@ private extension ViewController {
       let genericResponse = Mapper<AnyResponse>().map(JSON: json as! [String : Any])
 
       /// Set data and call `configureView`
-      self?.data = genericResponse?.display
+      self?.data = genericResponse?.data
     }
   }
 }

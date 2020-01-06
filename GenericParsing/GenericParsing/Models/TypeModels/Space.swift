@@ -20,17 +20,17 @@ public struct Space: ImmutableMappable {
   }
 }
 
-// MARK: - DisplayProtocol
+// MARK: - ViewModelProtocol
 
-public struct SpaceDisplay: DisplayProtocol {
+public struct SpaceViewModel: ViewModelProtocol {
 
   public var name: String
   public var detailTitle: String
   public var detail: String?
 
   public init(component: Response<Space>) {
-    name = component.data.name
+    name = component.detail.name
     detailTitle = "Distance:" // Sorry for this ☠️
-    detail = component.data.distance.description
+    detail = component.detail.distance.description
   }
 }

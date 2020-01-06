@@ -1,5 +1,5 @@
 //
-//  DisplayProtocol.swift
+//  ViewModelProtocol.swift
 //  GenericParsing
 //
 //  Created by Emre Çiftçi on 1.01.2020.
@@ -9,7 +9,7 @@
 import Foundation
 
 /// Objects has to conform this protocol for diplay
-public protocol DisplayProtocol {
+public protocol ViewModelProtocol {
 
   var name: String { get }
   var detailTitle: String { get }

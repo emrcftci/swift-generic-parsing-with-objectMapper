@@ -20,18 +20,18 @@ public struct Continent: ImmutableMappable {
   }
 }
 
-// MARK: - DisplayProtocol
+// MARK: - ViewModelProtocol
 
 /// Used for display UI with final values
-public struct ContinentDisplay: DisplayProtocol {
+public struct ContinentViewModel: ViewModelProtocol {
   
   public var name: String
   public var detailTitle: String
   public var detail: String?
 
   public init(component: Response<Continent>) {
-    name = component.data.name
+    name = component.detail.name
     detailTitle = "Population:" // Sorry for this ☠️
-    detail = component.data.population.description
+    detail = component.detail.population.description
   }
 }

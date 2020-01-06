@@ -14,8 +14,8 @@ public class AnyResponse: StaticMappable {
   public var type: ResponseType = .undefined
 
   /// "display" returns an object which has correct type and conforms DisplayProtocol
-  public var display: DisplayProtocol? {
-    return AnyResponse.displayForComponent(self)
+  public var data: ViewModelProtocol? {
+    return AnyResponse.dataFor(self)
   }
 
   public func mapping(map: Map) {
@@ -48,23 +48,23 @@ public class AnyResponse: StaticMappable {
     }
   }
 
-  /// Helper function for return correct `DisplayProtocol` object to use UI configuration
+  /// Helper function for return correct `ViewModelProtocol` object to use UI configuration
   ///
-  /// `SpaceDisplay` has an initializer like -> `init(component: Response<Space>)` so `component.unpacked()` function's <T> parameter is `Space`.
-  private class func displayForComponent(_ component: AnyResponse) -> DisplayProtocol? {
+  /// *Example:* `SpaceViewModel` has an initializer like -> `init(component: Response<Space>)` so `component.unpacked()` function's <T> parameter is `Space` for this example.
+  private class func dataFor(_ component: AnyResponse) -> ViewModelProtocol? {
 
     switch component.type {
     case .space:
-      return SpaceDisplay(component: component.unpacked())
+      return SpaceViewModel(component: component.unpacked())
 
     case .company:
-      return CompanyDisplay(component: component.unpacked())
+      return CompanyViewModel(component: component.unpacked())
 
     case .continent:
-      return ContinentDisplay(component: component.unpacked())
+      return ContinentViewModel(component: component.unpacked())
 
     case .person:
-      return PersonDisplay(component: component.unpacked())
+      return PersonViewModel(component: component.unpacked())
 
     case .undefined:
       return nil
