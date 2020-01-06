@@ -207,7 +207,7 @@ public class AnyResponse: StaticMappable {
 
   public var type: ResponseType = .undefined
 
-  /// "display" returns an object which has correct type and conforms DisplayProtocol
+  /// `data` returns an object which has correct type and conforms `ViewModelProtocol`
   public var data: ViewModelProtocol? {
     return AnyResponse.dataFor(self)
   }
@@ -318,7 +318,7 @@ Custom Build Script :rocket:
 
 #### Why we use that?
 
-1. We need to change endpoint for get different kind of objects from response.
+1. We need to change endpoint to get different kind of objects from response.
 2. We can change the endpoint simultaneously with the build
 3. We can learn about XCode custom build scripts :fire:
 

@@ -13,7 +13,7 @@ public class AnyResponse: StaticMappable {
 
   public var type: ResponseType = .undefined
 
-  /// "display" returns an object which has correct type and conforms DisplayProtocol
+  /// `data` returns an object which has correct type and conforms `ViewModelProtocol`
   public var data: ViewModelProtocol? {
     return AnyResponse.dataFor(self)
   }
