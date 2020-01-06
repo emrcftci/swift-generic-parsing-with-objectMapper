@@ -425,8 +425,9 @@ Resources that I benefit from to create this comprehensive documentation.
 * [ObjectMapper Installation with Cocoapods and Carthage](http://cocoadocs.org/docsets/ObjectMapper/0.2/)
 * [ObjectMapper Installation with Swift Package Manager](http://cocoadocs.org/docsets/ObjectMapper/3.0.0/#installation)
 * [ObjectMapper Protocols](https://github.com/tristanhimmelman/ObjectMapper#staticMappable-protocol)
-
 * [Alamofire Installation](https://cocoapods.org/pods/Alamofire)
+* [The answer of `${SRCROOT}` meaning](https://stackoverflow.com/a/3719314/7512091)
+
 
 Find this docs useful? :interrobang:
 ======================
